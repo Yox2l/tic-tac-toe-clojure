@@ -10,8 +10,8 @@
             [tic-tac-toe-server.in-memory-db :as db]
             [ring.middleware.json :refer [wrap-json-response wrap-json-params]]
             [ring.util.response :refer [response]]
+            [ring.middleware.cors :refer [wrap-cors]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]))
-
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
@@ -50,10 +50,16 @@
 ;; (def app
 ;;   (wrap-json-body (wrap-json-response (wrap-defaults app-routes api-defaults))))
 
+;; (def handler
+;;   (wrap-cors my-routes :access-control-allow-origin [#"http://example.com"]
+;;              :access-control-allow-methods [:get :put :post :delete]))
+
 (def app
   (-> (wrap-defaults app-routes api-defaults)
       (wrap-json-params)
-      (wrap-json-response)))
+      (wrap-json-response)
+      (wrap-cors :access-control-allow-origin [#".*"]
+                 :access-control-allow-methods [:get :post])))
 
 (alter-var-root #'*out* (constantly *out*))
 

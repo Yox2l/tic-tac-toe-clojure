@@ -1,0 +1,21 @@
+lein uberjar
+
+aws lambda create-function --profile personal \
+--function-name tic-tac-toe-clojure \
+--runtime java8 \
+--memory-size 256 \
+--role arn:aws:iam::944156395127:role/basic_lambda_role \
+--handler lambda-serverless.core.handler \
+--zip-file fileb://target/lambda-serverless.jar \
+--region eu-west-1
+
+
+aws s3 cp target/lambda-serverless.jar s3://lambda-uploads-a1v.prd/lambda-serverless.jar --profile personal
+aws lambda update-function-code --profile personal \
+--function-name tic-tac-toe-clojure \
+--s3-bucket lambda-uploads-a1v.prd \
+--s3-key lambda-serverless.jar \
+--region eu-west-1
+echo "SLEEP 15"
+sleep 15
+node ../stupid_client/lambda_api.js

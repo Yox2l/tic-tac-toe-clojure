@@ -9,11 +9,23 @@ exit_on_failure()
 }
 npm run build
 exit_on_failure $? "Failure while building svelte project, did you run 'npm install'?"
+cp -r public tmp_public
+ver=$(echo $RANDOM | md5sum | head -c 20;)
+cd tmp_public/build
+mv bundle.css bundle.$ver.css
+mv bundle.js bundle.$ver.js
+mv bundle.js.map bundle.$ver.js.map
+cd ..
+sed -i -e "s/bundle/bundle.$ver/g" index.html
+cd ..
 s3_bucket=tic-tac-toe.route42.co.il
 echo Synching Build Folder: $s3_bucket...
-aws s3 sync public/ s3://$s3_bucket --delete --cache-control max-age=31536000,public --profile personal
+aws s3 sync tmp_public/ s3://$s3_bucket --delete --cache-control max-age=31536000,public --profile personal
 
 echo Adjusting cache...
 # setting index.html cache to 0 age so react js file will be update every time that we upload new version
 aws s3 cp s3://$s3_bucket/index.html s3://$s3_bucket/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html --profile personal
+rm -rf tmp_public
 echo DONE!
+
+

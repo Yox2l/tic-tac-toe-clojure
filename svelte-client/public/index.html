@@ -11,6 +11,24 @@
 	<link rel='stylesheet' href='/build/bundle.css'>
 
 	<script defer src='/build/bundle.js'></script>
+	<script>
+		(function(n,i,v,r,s,c,x,z){x=window.AwsRumClient={q:[],n:n,i:i,v:v,r:r,c:c};window[n]=function(c,p){x.q.push({c:c,p:p});};z=document.createElement('script');z.async=true;z.src=s;document.head.insertBefore(z,document.head.getElementsByTagName('script')[0]);})(
+		  'cwr',
+		  '1346b3f6-5bb7-480d-87df-6706f3adc022',
+		  '1.0.0',
+		  'eu-west-1',
+		  'https://client.rum.us-east-1.amazonaws.com/1.2.1/cwr.js',
+		  {
+			sessionSampleRate: 1,
+			guestRoleArn: "arn:aws:iam::944156395127:role/RUM-Monitor-eu-west-1-944156395127-5587485204561-Unauth",
+			identityPoolId: "eu-west-1:b525562c-cf84-4759-b4aa-1180aaf495ca",
+			endpoint: "https://dataplane.rum.eu-west-1.amazonaws.com",
+			telemetries: ["performance","errors","http"],
+			allowCookies: true,
+			enableXRay: false
+		  }
+		);
+	  </script>
 </head>
 
 <body>

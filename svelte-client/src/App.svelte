@@ -119,7 +119,7 @@
 	{#if game_data.winner}
 	<h2> The winner is:<strong style="color: {game_data.winner === game_data.player ? "blue": "red"}">{game_data.winner}</strong> </h2>
 	{/if}
-	<p class="blog">©Yotam Lichter 2022 <a href="https://route42.co.il/clojure-part-1-logic" target="_blank">route42</a></p>
+	<p class="blog">© Yotam Lichter 2022 <a href="https://route42.co.il/clojure-part-1-logic" target="_blank">route42</a></p>
 </main>
 
 <style>
@@ -143,10 +143,15 @@
 	.blog {
 		font-family: Arial, Helvetica, sans-serif;
 		font-size: 16px;
-		color: black;
+		color: cyan;
 		position: absolute;
-		bottom: -44px;
-		left: 0px;
+		bottom: 0px;
+		/* left: 8px; */
+	}
+
+	.blog a {
+		text-decoration: underline;
+		color: cyan;
 	}
 
 	.start-new-game {

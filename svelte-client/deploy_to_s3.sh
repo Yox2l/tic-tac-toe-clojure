@@ -16,7 +16,9 @@ mv bundle.css bundle.$ver.css
 mv bundle.js bundle.$ver.js
 mv bundle.js.map bundle.$ver.js.map
 cd ..
+mv global.css global.$ver.css
 sed -i -e "s/bundle/bundle.$ver/g" index.html
+sed -i -e "s/global/global.$ver/g" index.html
 cd ..
 s3_bucket=tic-tac-toe.route42.co.il
 echo Synching Build Folder: $s3_bucket...
